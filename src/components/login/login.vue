@@ -36,9 +36,8 @@ export default {
         const data = res.data
         const meta = res.meta
         const status = meta.status
-        console.log(meta)
         if(status === 200) {
-          // this.router.push('/home')
+           vm.$router.push({name: 'home'})
            vm.$message.success(meta.msg)
         } else {
            vm.$message.warning(meta.msg)
