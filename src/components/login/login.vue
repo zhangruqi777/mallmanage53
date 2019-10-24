@@ -25,24 +25,41 @@ export default {
   },
   methods: {
     //登录请求
-    async handleLogin() {
-      const vm = this
-      //希望让这里异步的代码看起来像同步代码
-      const response= await this.$http.post('login',this.formdata
-      ) 
-      //解构赋值
-      // const {data,meta:{msg,status}} =response.data
-      const res = response.data
-      const data = res.data
-      const meta = res.meta
-      const status = meta.status
-      if(status === 200) {
-         vm.$message.success(meta.msg)
-         vm.$router.push({name: 'home'})
-      } else {
-         vm.$message.warning(meta.msg)
-      }      
+    // async handleLogin() {
+    //   const vm = this
+    //   //希望让这里异步的代码看起来像同步代码,使用了async+await
+    //   const response= await this.$http.post('login',this.formdata) 
+    //   //解构赋值
+    //   // const {data,meta:{msg,status}} =response.data
+    //   const res = response.data
+    //   const data = res.data
+    //   const meta = res.meta
+    //   const status = meta.status
+    //   if(status === 200) {
+    //      vm.$message.success(meta.msg)
+    //      vm.$router.push({name: 'home'})
+    //   } else {
+    //      vm.$message.warning(meta.msg)
+    //   }      
+    // }
+    // handleLogin(){
+    //   this.$http.post('login',this.formdata).then(response=>{
+    //     const {data,meta:{msg,status}} =response.data
+    //     if(status === 200){
+    //       this.$message.success(msg)
+    //     }
+    //   })
+    // }
+    async handleLogin(){
+      const response = await this.$http.post('login',this.formdata)
+      const {data,meta:{msg,status}} =response.data
+      if(status === 200){
+        this.$message.success(msg)
+      }else {
+        this.$message.error(msg)
+      }
     }
+
   }
 }
 </script>
