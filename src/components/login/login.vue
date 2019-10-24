@@ -25,27 +25,23 @@ export default {
   },
   methods: {
     //登录请求
-    handleLogin() {
+    async handleLogin() {
       const vm = this
-      this.$http.post('login',this.formdata
-      )
-      .then(function (response) {  
-        //解构赋值
-        // const {data,meta:{msg,status}} =response.data
-        const res = response.data
-        const data = res.data
-        const meta = res.meta
-        const status = meta.status
-        if(status === 200) {
-           vm.$router.push({name: 'home'})
-           vm.$message.success(meta.msg)
-        } else {
-           vm.$message.warning(meta.msg)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+      //希望让这里异步的代码看起来像同步代码
+      const response= await this.$http.post('login',this.formdata
+      ) 
+      //解构赋值
+      // const {data,meta:{msg,status}} =response.data
+      const res = response.data
+      const data = res.data
+      const meta = res.meta
+      const status = meta.status
+      if(status === 200) {
+         vm.$message.success(meta.msg)
+         vm.$router.push({name: 'home'})
+      } else {
+         vm.$message.warning(meta.msg)
+      }      
     }
   }
 }
