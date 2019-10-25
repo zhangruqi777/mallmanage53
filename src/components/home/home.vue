@@ -96,7 +96,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+    //保证有token才能继续渲染
+    beforeCreate() {
+        const token = localStorage.getItem('token')
+        console.log(token)
+        if(!token) {
+            this.$router.push({name:'login'})
+        }
+    },
+    methods: {
+
+    }
+
+};
 </script>
 
 <style>

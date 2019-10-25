@@ -27,7 +27,7 @@ export default {
     //登录请求
     // async handleLogin() {
     //   const vm = this
-    //   //希望让这里异步的代码看起来像同步代码,使用了async+await
+    //   //希望让这里异步的代码看起来像同步代码,使用了async+await，这里没有箭头函数，this都不对
     //   const response= await this.$http.post('login',this.formdata) 
     //   //解构赋值
     //   // const {data,meta:{msg,status}} =response.data
@@ -54,12 +54,16 @@ export default {
       const response = await this.$http.post('login',this.formdata)
       const {data,meta:{msg,status}} =response.data
       if(status === 200){
+        //0.保存token,如果用户没有登陆直接来到home组件，要判断用户是否登陆过
+        localStorage.setItem('token',data.token)
+        console.log(localStorage.getItem('token'))
+        //1.跳转home
+        this.$router.push({name:'home'})
         this.$message.success(msg)
       }else {
         this.$message.error(msg)
       }
     }
-
   }
 }
 </script>
